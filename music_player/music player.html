@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Black - Music Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="vendor/css/all.css">
+    <link rel="stylesheet" href="../public/style.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="nova black.html" class="logo">
+            <span class="logo-dot"></span>
+            Nova Black
+        </a>
+        <ul class="nav-links">
+            <li><a href="nova black.html">⌂ Home</a></li>
+            <li><a href="#" class="active">♫ Music</a></li>
+            <li><a href="nova black.html">◈ Chat</a></li>
+            <li><a href="game-controller.html">◉ Games</a></li>
+            <li><a href="nova black.html">⬡ Tools</a></li>
+        </ul>
+    </nav>
+
+    <main id="content" class="music-app-wrapper">
+        <div class="app-container">
+            
+            <div class="player-column card">
+                <div class="player-main">
+                    <div id="album-art" class="album-art">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h2 id="song-title">Select a Track</h2>
+                    <p id="song-artist">Nova Black Audio</p>
+
+                    <div class="player-controls">
+                        <div class="progress-container">
+                            <span id="current-time">0:00</span>
+                            <div class="progress-bar-wrapper">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                            <span id="total-time">0:00</span>
+                        </div>
+                        
+                        <div class="buttons-container">
+                            <button id="prev-btn" class="control-btn"><i class="fas fa-backward-step"></i></button>
+                            <button id="play-pause-btn" class="control-btn play-btn"><i class="fas fa-play"></i></button>
+                            <button id="next-btn" class="control-btn"><i class="fas fa-forward-step"></i></button>
+                        </div>
+                        
+                        <div class="extra-controls">
+                            <div class="volume-container">
+                                <i class="fas fa-volume-down"></i>
+                                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+                                <i class="fas fa-volume-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resizer horizontal-resizer" id="horizontal-resizer" style="display: none;"></div>
+            <div class="resizer vertical-resizer" id="vertical-resizer" style="display: none;"></div>
+
+            <div class="playlist-column card">
+                <div class="playlist-header">
+                    <h3 class="section-title" id="playlist-title">Queue</h3>
+                    <div class="playlist-actions">
+                        <input type="text" id="search-bar" class="nova-input" placeholder="Search tracks...">
+                        <label for="file-input" class="add-btn"><i class="fas fa-folder-open"></i></label>
+                        <button id="github-load-btn" class="add-btn"><i class="fab fa-github"></i></button>
+                        <button id="toggle-playlist-btn" class="add-btn mobile-only-btn"><i class="fas fa-chevron-up"></i></button>
+                        <input type="file" id="file-input" multiple accept="audio/*" style="display: none;" webkitdirectory>
+                    </div>
+                </div>
+                <div id="playlist" class="playlist-content">
+                    <p class="empty-playlist-msg card-desc">Load a folder to see your music.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <span class="footer-logo">Nova Black</span>
+        <span class="footer-copy">© 2025 InfinityTeck · All rights reserved</span>
+    </footer>
+
+    <audio id="audio-player"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
