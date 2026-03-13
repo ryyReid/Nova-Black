@@ -3,22 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nova Black</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&family=Syne:wght@800&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="public/Nav-Sheet/style.css">
+  <title>Nova Black · Games</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/style.css">
+  
 </head>
 <body>
 
-  <nav>
-    <a href="#" class="logo">
+  <nav id="navbar">
+    <a href="../index.html" class="logo">
       <span class="logo-dot"></span>
       Nova Black
     </a>
     <ul class="nav-links">
-      <li><a href="#" class="active">Home</a></li>
-      <li><a href="#">TOP Button</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Music</a></li>
+      <li><a href="#">Chat</a></li>
+      <li><a href="games.html" class="active">Games</a></li>
+      <li><a href="#">Tools</a></li>
     </ul>
   </nav>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search games...">
+      <span class="result-count" id="resultCount"></span>
+    </div>
+  </div>
+
+  <main id="content">
+    <div class="card-grid" id="gameGrid"></div>
+    <div class="no-results" id="noResults">No games found</div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Nova Black</span>
+    <span class="footer-copy">© 2025 InfinityTeck · All rights reserved</span>
+  </footer>
+
+  <script>
+    const GAMES = [
+      { title: 'Snake',        icon: '🐍', tag: 'Arcade',   desc: "Eat, grow, don't die.",               href: 'snake/index.html' },
+      { title: 'Tic Tac Toe',  icon: '⊞',  tag: '2 Player', desc: "Classic X's and O's.",                href: 'tictactoe/index.html' },
+      { title: 'Memory Match', icon: '◉',  tag: 'Puzzle',   desc: 'Flip cards and find pairs.',          href: 'memory/index.html' },
+      { title: 'Breakout',     icon: '🧱', tag: 'Arcade',   desc: 'Smash bricks with a bouncing ball.',  href: '#', soon: true },
+      { title: 'Tetris',       icon: '🟦', tag: 'Puzzle',   desc: 'Stack blocks, clear lines.',          href: '#', soon: true },
+      { title: 'Flappy Bird',  icon: '🐦', tag: 'Casual',   desc: 'Tap to survive.',                     href: '#', soon: true },
+      { title: 'Minesweeper',  icon: '💣', tag: 'Strategy', desc: "Find mines without setting them off.",href: '#', soon: true },
+      { title: 'Wordle',       icon: '🔤', tag: 'Word',     desc: 'Guess the word in 6 tries.',          href: '#', soon: true },
+      { title: 'Pong',         icon: '🏓', tag: '2 Player', desc: 'The original arcade classic.',        href: '#', soon: true },
+      { title: 'Space Inv.',   icon: '👾', tag: 'Arcade',   desc: 'Shoot down waves of aliens.',         href: '#', soon: true },
+      { title: 'Chess',        icon: '♟',  tag: 'Strategy', desc: 'Play chess vs AI or a friend.',       href: '#', soon: true },
+      { title: 'Sudoku',       icon: '🔢', tag: 'Puzzle',   desc: 'Fill the 9x9 grid logically.',        href: '#', soon: true },
+    ];
+
+    const PER_PAGE = 8;
+    let currentPage = 1;
+    let filtered = [...GAMES];
+
+    const grid        = document.getElementById('gameGrid');
+    const paginationEl= document.getElementById('pagination');
+    const noResults   = document.getElementById('noResults');
+    const countEl     = document.getElementById('resultCount');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderCards() {
+      grid.innerHTML = '';
+      const start = (currentPage - 1) * PER_PAGE;
+      const slice = filtered.slice(start, start + PER_PAGE);
+
+      if (slice.length === 0) {
+        noResults.style.display = 'block';
+        grid.style.display = 'none';
+      } else {
+        noResults.style.display = 'none';
+        grid.style.display = 'grid';
+        slice.forEach(g => {
+          const a = document.createElement('a');
+          a.className = 'game-card' + (g.soon ? ' soon' : '');
+          a.href = g.soon ? '#' : g.href;
+          a.innerHTML = `
+            <div class="game-thumb">${g.icon}</div>
+            <div class="game-info">
+              <div class="game-title">${g.title}</div>
+              <div class="game-desc">${g.desc}</div>
+              <span class="game-tag">${g.soon ? 'Coming Soon' : g.tag}</span>
+            </div>`;
+          grid.appendChild(a);
+        });
+      }
+
+      countEl.textContent = filtered.length + ' game' + (filtered.length !== 1 ? 's' : '');
+      renderPagination();
+    }
+
+    function renderPagination() {
+      paginationEl.innerHTML = '';
+      const total = Math.ceil(filtered.length / PER_PAGE);
+      if (total <= 1) return;
+
+      const prev = document.createElement('button');
+      prev.className = 'page-btn';
+      prev.textContent = '←';
+      prev.disabled = currentPage === 1;
+      prev.onclick = () => { currentPage--; renderCards(); window.scrollTo({top:0,behavior:'smooth'}); };
+      paginationEl.appendChild(prev);
+
+      for (let i = 1; i <= total; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'page-btn' + (i === currentPage ? ' active' : '');
+        btn.textContent = i;
+        btn.onclick = (function(p){ return () => { currentPage = p; renderCards(); window.scrollTo({top:0,behavior:'smooth'}); }; })(i);
+        paginationEl.appendChild(btn);
+      }
+
+      const next = document.createElement('button');
+      next.className = 'page-btn';
+      next.textContent = '→';
+      next.disabled = currentPage === total;
+      next.onclick = () => { currentPage++; renderCards(); window.scrollTo({top:0,behavior:'smooth'}); };
+      paginationEl.appendChild(next);
+    }
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      filtered = GAMES.filter(g =>
+        g.title.toLowerCase().includes(q) ||
+        g.tag.toLowerCase().includes(q) ||
+        g.desc.toLowerCase().includes(q)
+      );
+      currentPage = 1;
+      renderCards();
+    });
+
+    renderCards();
+  </script>
 </body>
-<p>Put Content here!</p>
 </html>

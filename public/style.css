@@ -264,6 +264,160 @@ footer {
   color: var(--dim);
   letter-spacing: 1px;
 }
+ body { padding-top: 58px; }
+
+    .search-wrap {
+      max-width: 1100px;
+      margin: 40px auto 32px;
+      padding: 0 40px;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 0 18px;
+      transition: border-color 0.2s;
+    }
+
+    .search-box:focus-within {
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .search-icon { font-size: 14px; color: rgba(255,255,255,0.25); flex-shrink: 0; }
+
+    .search-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      padding: 14px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .search-box input::placeholder { color: rgba(255,255,255,0.2); }
+
+    .result-count {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.18);
+      flex-shrink: 0;
+    }
+
+    #content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px 100px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .game-card {
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: #141414;
+      transform: translateY(-2px);
+    }
+
+    .game-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #111;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      position: relative;
+    }
+
+    .game-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+    }
+
+    .game-info { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .game-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; }
+    .game-desc { font-size: 11px; color: rgba(255,255,255,0.32); line-height: 1.6; flex: 1; }
+
+    .game-tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 2px;
+      padding: 2px 8px;
+      width: fit-content;
+    }
+
+    .game-card.soon { opacity: 0.35; pointer-events: none; }
+
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 80px 0;
+      color: rgba(255,255,255,0.2);
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 48px;
+    }
+
+    .page-btn {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 10px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 3px;
+      color: rgba(255,255,255,0.35);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .page-btn:hover { color: #fff; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
+    .page-btn.active { color: #fff; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06); }
+    .page-btn:disabled { opacity: 0.2; cursor: default; pointer-events: none; }
 
 /* ── NOVA BLACK MUSIC PLAYER STYLES ── */
 .music-app-wrapper {
