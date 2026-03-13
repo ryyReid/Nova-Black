@@ -1,0 +1,219 @@
+
+@import url("../public/style.css");
+/* ── NOVA BLACK MUSIC PLAYER STYLES ── */
+.music-app-wrapper {
+  padding-top: 40px; 
+  display: flex;
+  align-items: stretch;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row; /* Forces side-by-side layout */
+  gap: 24px;
+  width: 100%;
+  height: 650px; /* Fixed height for a sleek app feel */
+}
+
+/* ── LEFT COLUMN: PLAYER ── */
+.player-column {
+  flex: 2; /* Takes up 2/3 of the space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.album-art {
+  width: 260px;
+  height: 260px;
+  margin: 0 auto 24px;
+  background: #141414;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  color: var(--dim);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+#song-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+#song-artist {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 36px;
+}
+
+.player-controls {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.progress-bar-wrapper {
+  flex: 1;
+  height: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #fff;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.control-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.play-btn {
+  font-size: 32px;
+  color: #fff;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+#volume-slider {
+  -webkit-appearance: none;
+  width: 120px;
+  height: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  outline: none;
+}
+
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+/* ── RIGHT COLUMN: SIDEBAR PLAYLIST ── */
+.playlist-column {
+  flex: 1; /* Takes up 1/3 of the space */
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+}
+
+.playlist-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+}
+
+#playlist-title {
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-family: 'Syne', sans-serif;
+}
+
+.playlist-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.nova-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.add-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-btn:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+
+.playlist-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Stack vertically on smaller screens automatically */
+@media (max-width: 900px) {
+  .app-container {
+    flex-direction: column;
+    height: auto;
+  }
+  .playlist-column {
+    min-height: 400px;
+  }
+}
