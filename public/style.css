@@ -107,7 +107,7 @@ ul { list-style: none; }
 /* ── HERO ── */
 #hero {
   background: var(--bg);
-  position: relative;
+/*  position: relative; Removed Gab */
   height: 320px;
   display: flex;
   flex-direction: column;
