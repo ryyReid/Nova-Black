@@ -116,7 +116,7 @@ ul { list-style: none; }
   text-align: center;
   margin-top: 58px;
   overflow: hidden;
-  border-bottom: 1px solid var(--border);
+ /* border-bottom: 1px solid var(--border);  Little Gray Dash Removal*/
   gap: 14px;
 }
 
