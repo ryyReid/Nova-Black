@@ -187,7 +187,7 @@ footer { display:none; } /* hidden in full-viewport layout */
 .extra-controls { display:flex; align-items:center; justify-content:center; gap:12px; flex-wrap:wrap; }
 
 .volume-container { display:flex; align-items:center; gap:8px; color:var(--muted); }
-#volume-slider { -webkit-appearance:none; width:80px; height:4px; background:rgba(255,255,255,0.08); border:1px solid var(--border); border-radius:2px; outline:none; }
+#volume-slider { -webkit-appearance:none; appearance:none; width:80px; height:4px; background:rgba(255,255,255,0.08); border:1px solid var(--border); border-radius:2px; outline:none; }
 #volume-slider::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; border-radius:50%; background:#fff; cursor:pointer; }
 
 /* AUTO-CC BUTTON */
@@ -222,7 +222,7 @@ footer { display:none; } /* hidden in full-viewport layout */
 .icon-btn.cc-off { color:rgba(255,255,255,0.22); }
 
 .sub-size-control { display:flex; align-items:center; gap:6px; color:var(--muted); }
-#sub-size-slider { -webkit-appearance:none; width:50px; height:3px; background:rgba(255,255,255,0.1); border:1px solid var(--border); border-radius:2px; outline:none; cursor:pointer; }
+#sub-size-slider { -webkit-appearance:none; -moz-appearance:none; appearance:none; width:50px; height:3px; background:rgba(255,255,255,0.1); border:1px solid var(--border); border-radius:2px; outline:none; cursor:pointer; }
 #sub-size-slider::-webkit-slider-thumb { -webkit-appearance:none; width:10px; height:10px; border-radius:50%; background:#fff; cursor:pointer; }
 
 /* ── AUDIO TRANSCRIPT PANEL ── */
