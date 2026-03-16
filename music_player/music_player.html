@@ -16,8 +16,7 @@
             Nova Black
         </a>
         <ul class="nav-links">
-            <li><a href="../index.html">⌂ Home</a></l>
-            <li><a href="music_player.html">♫ Music</a></li>
+            <li><a href="../index.html">⌂ Home</a></li>
             <li><a href="../index.html#chat">◈ Chat</a></li>
             <li><a href="../game-controller.html">◉ Games</a></li>
             <li><a href="../index.html#tools">⬡ Tools</a></li>
@@ -26,12 +25,27 @@
 
     <main id="content" class="music-app-wrapper">
         <div class="app-container">
-            
+
             <div class="player-column card">
                 <div class="player-main">
+
+                    <!-- Album art / video area -->
                     <div id="album-art" class="album-art">
-                        <i class="fas fa-music"></i>
+                        <video id="video-player" style="display:none;" playsinline></video>
+                        <span id="album-art-icon" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                            <i class="fas fa-music"></i>
+                        </span>
+                        <!-- Live auto-subtitle overlay (video mode) -->
+                        <div id="video-sub-overlay" class="video-sub-overlay">
+                            <span id="video-sub-interim" class="sub-interim"></span>
+                            <span id="video-sub-final"   class="sub-final"></span>
+                        </div>
+                        <!-- Fullscreen overlay btn -->
+                        <button id="fs-overlay-btn" class="fs-overlay-btn" title="Fullscreen (F)">
+                            <i class="fas fa-expand"></i>
+                        </button>
                     </div>
+
                     <h2 id="song-title">Select a Track</h2>
                     <p id="song-artist">Nova Black Audio</p>
 
@@ -43,40 +57,83 @@
                             </div>
                             <span id="total-time">0:00</span>
                         </div>
-                        
+
                         <div class="buttons-container">
-                            <button id="prev-btn" class="control-btn"><i class="fas fa-backward-step"></i></button>
-                            <button id="play-pause-btn" class="control-btn play-btn"><i class="fas fa-play"></i></button>
-                            <button id="next-btn" class="control-btn"><i class="fas fa-forward-step"></i></button>
+                            <button id="prev-btn"       class="control-btn"           title="Previous"><i class="fas fa-backward-step"></i></button>
+                            <button id="play-pause-btn" class="control-btn play-btn"  title="Play / Pause (Space)"><i class="fas fa-play"></i></button>
+                            <button id="next-btn"       class="control-btn"           title="Next"><i class="fas fa-forward-step"></i></button>
                         </div>
-                        
+
                         <div class="extra-controls">
+
+                            <!-- Volume -->
                             <div class="volume-container">
-                                <i class="fas fa-volume-down"></i>
+                                <button id="mute-btn" class="control-btn icon-btn" title="Mute (M)"><i class="fas fa-volume-high"></i></button>
                                 <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
-                                <i class="fas fa-volume-up"></i>
                             </div>
+
+                            <!-- Auto-CC (always visible, works for audio + video) -->
+                            <button id="auto-cc-btn" class="auto-cc-btn cc-off" title="Live auto-subtitles via browser speech recognition (A)">
+                                <i class="fas fa-microphone-lines"></i>
+                                <span>Auto CC</span>
+                            </button>
+
+                            <!-- Video-only controls -->
+                            <div id="video-controls" class="video-extra-controls" style="display:none;">
+                                <label for="subtitle-input" class="icon-btn" title="Load subtitles (.srt/.vtt)">
+                                    <i class="fas fa-closed-captioning"></i>
+                                </label>
+                                <input type="file" id="subtitle-input" accept=".srt,.vtt" style="display:none;">
+
+                                <button id="cc-btn" class="icon-btn cc-off" title="Toggle subtitles (C)">
+                                    <i class="fas fa-comment-slash"></i>
+                                </button>
+
+                                <div class="sub-size-control" title="Subtitle size">
+                                    <i class="fas fa-font" style="font-size:10px;"></i>
+                                    <input type="range" id="sub-size-slider" min="0.6" max="2.5" step="0.1" value="1.2">
+                                </div>
+
+                                <button id="fullscreen-btn" class="icon-btn" title="Fullscreen (F)">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+
+                        </div><!-- end extra-controls -->
+                    </div><!-- end player-controls -->
+
+                    <!-- Audio mode: live transcript panel -->
+                    <div id="audio-sub-box" class="audio-sub-box" style="display:none;">
+                        <div class="audio-sub-header">
+                            <i class="fas fa-microphone-lines"></i>
+                            <span>Live Transcript</span>
+                            <span id="sub-status" class="sub-status"></span>
+                        </div>
+                        <div id="audio-sub-lines" class="audio-sub-lines">
+                            <p id="audio-interim" class="sub-line interim-line"></p>
                         </div>
                     </div>
+
+                    <p class="key-hint">Space · ← → seek · ↑↓ vol · F fullscreen · M mute · C captions · A auto-CC</p>
                 </div>
             </div>
 
-            <div class="resizer horizontal-resizer" id="horizontal-resizer" style="display: none;"></div>
-            <div class="resizer vertical-resizer" id="vertical-resizer" style="display: none;"></div>
+            <div class="resizer horizontal-resizer" id="horizontal-resizer" style="display:none;"></div>
+            <div class="resizer vertical-resizer"   id="vertical-resizer"   style="display:none;"></div>
 
             <div class="playlist-column card">
                 <div class="playlist-header">
                     <h3 class="section-title" id="playlist-title">Queue</h3>
                     <div class="playlist-actions">
                         <input type="text" id="search-bar" class="nova-input" placeholder="Search tracks...">
-                        <label for="file-input" class="add-btn"><i class="fas fa-folder-open"></i></label>
-                        <button id="github-load-btn" class="add-btn"><i class="fab fa-github"></i></button>
+                        <label for="file-input" class="add-btn" title="Load folder"><i class="fas fa-folder-open"></i></label>
+                        <button id="github-load-btn" class="add-btn" title="Load from GitHub"><i class="fab fa-github"></i></button>
                         <button id="toggle-playlist-btn" class="add-btn mobile-only-btn"><i class="fas fa-chevron-up"></i></button>
-                        <input type="file" id="file-input" multiple accept="audio/*" style="display: none;" webkitdirectory>
+                        <input type="file" id="file-input" multiple accept="audio/*,video/mp4,.mp4,.m4a,.aac,.flac,.ogg,.wav,.wma,.webm,.mkv,.mov" style="display:none;" webkitdirectory>
                     </div>
                 </div>
                 <div id="playlist" class="playlist-content">
-                    <p class="empty-playlist-msg card-desc">Load a folder to see your music.</p>
+                    <p class="empty-playlist-msg">Load a folder to see your music.</p>
                 </div>
             </div>
 
